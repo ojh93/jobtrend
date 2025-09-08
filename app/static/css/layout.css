@@ -1,0 +1,130 @@
+/* ────────────────────────────────────────
+   layout.css: Header, Main & Footer Layout
+──────────────────────────────────────── */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  background: transparent;
+  z-index: 10000;
+}
+
+header .logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+}
+
+header nav ul.nav-menu {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul.nav-menu li a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+}
+header nav ul.nav-menu li a:hover {
+  color: #ffe57f;
+}
+
+/* Hamburger Button (Mobile) */
+header .hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+  }
+  header nav ul.nav-menu {
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    background: rgba(0,0,0,0.9);
+    flex-direction: column;
+    display: none;
+    padding: 1rem;
+    border-radius: 6px;
+  }
+  header nav ul.nav-menu.open {
+    display: flex;
+  }
+  header .hamburger {
+    display: block;
+  }
+}
+
+/* Main (Trend) Container */
+main.trend-container {
+  margin-top: 60px; /* header 높이 오프셋 */
+  flex: 1;
+}
+
+/* Footer */
+footer {
+  background: #fff;
+  color: #333;
+  padding: 1.5rem;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* 항목 간 간격 */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-links a {
+  color: #004e92;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-copy {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+
+/* css/layout.css */
+
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: transparent;
+  z-index: 1000;    /* 충분히 높은 값 */
+}
+

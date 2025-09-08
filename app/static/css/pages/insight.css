@@ -1,0 +1,215 @@
+/* ===============================
+   채팅 레이아웃 스타일
+   =============================== */
+:root {
+  --bg: #f6f8fa;
+  --panel: #ffffff;
+  --border: #e5e7eb;
+  --text: #0f172a;
+  --muted: #64748b;
+  --ai-bubble: #f1f5f9;
+  --user-bubble: #2563eb;
+  --user-text: #ffffff;
+  --accent: #2563eb;
+}
+
+/* 상단 Hero 영역 */
+.hero-bg {
+  background: url("../../assets/insight-1.jpg") center/cover no-repeat;
+  min-height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+.insight-page-title {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+}
+
+/* 전체 페이지 배경 */
+.chat-layout {
+  background: var(--bg);
+  min-height: 100vh;
+}
+.chat-window {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 16px 24px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 12px;
+}
+
+/* 메시지 리스트 */
+.messages {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 12px;
+  overflow-y: auto;
+  max-height: calc(100vh - 280px);
+  scroll-behavior: smooth;
+}
+
+/* 개별 메시지 */
+.message {
+  display: flex;
+  gap: 10px;
+  margin: 10px 8px;
+  align-items: flex-end;
+}
+.message .avatar {
+  flex: 0 0 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #334155;
+  display:flex; align-items:center; justify-content:center;
+  font-size: .8rem;
+  font-weight: 700;
+}
+.message .bubble {
+  max-width: 78%;
+  border-radius: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--ai-bubble);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+.message .meta {
+  margin-top: 6px;
+  font-size: .75rem;
+  color: var(--muted);
+}
+
+/* 사용자 메시지 */
+.message.user {
+  flex-direction: row-reverse;
+}
+.message.user .avatar {
+  background: #dbeafe;
+  color: #1e40af;
+}
+.message.user .bubble {
+  background: var(--user-bubble);
+  color: var(--user-text);
+  border-color: transparent;
+}
+
+/* 추천 질문 칩 버튼 */
+.suggested-questions {
+  position: sticky;
+  top: 10px;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0;
+}
+.suggested-btn {
+  padding: 8px 14px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  transition: background-color .2s ease, transform .1s ease;
+}
+.suggested-btn:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+.suggested-btn:active {
+  transform: translateY(0);
+}
+
+/* 입력창(Composer) */
+.composer {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: end;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+}
+#questionInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  min-height: 42px;
+  max-height: 180px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--text);
+  background: transparent;
+  transition: border-color 0.3s ease;
+}
+#questionInput::placeholder {
+  color: #94a3b8;
+}
+#questionInput:focus::placeholder {
+  color: #cbd5e1;
+}
+.send-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+.send-btn:hover {
+  background: #1e40af;
+}
+
+/* 로딩(타이핑) 인디케이터 */
+.typing {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+.typing .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #94a3b8;
+  opacity: .6;
+  animation: blink 1.2s infinite;
+}
+.typing .dot:nth-child(2) {
+  animation-delay: .2s;
+}
+.typing .dot:nth-child(3) {
+  animation-delay: .4s;
+}
+@keyframes blink {
+  0%, 80%, 100% { transform: translateY(0); opacity: .5; }
+  40% { transform: translateY(-3px); opacity: 1; }
+}
+
+/* 오류 메시지 */
+.error {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .message .bubble { max-width: 86%; }
+}

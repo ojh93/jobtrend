@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}마이페이지 | JobTrends{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/mypage.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- 배경 이미지 영역: 헤더 바로 아래 -->
+<section class="hero-bg" style="background-image: url('{{ url_for('static', filename='assets/mypage.jpg') }}');">
+  <div class="hero-overlay">
+    <h1 class="mypage-page-title">마이페이지</h1>
+  </div>
+</section>
+
+<main class="mypage-page">
+  <!-- 📊 트렌드 예측 이력 -->
+  <section>
+    <h3>📊 트렌드 예측 이력</h3>
+    <ul id="trendHistoryList" class="trend-history-list"></ul>
+  </section>
+
+  <!-- 🧾 계정 정보 -->
+  <section>
+    <h3>🧾 계정 정보</h3>
+    <div class="ai-card">
+      <p><strong>이름:</strong> <input type="text" name="name" disabled /></p>
+      <p><strong>이메일:</strong> <input type="email" name="email" disabled /></p>
+      <button class="primary-btn">개인정보 수정</button>
+      <button class="warn-btn">회원 탈퇴</button>
+    </div>
+  </section>
+</main>
+
+<!-- 회원 탈퇴 모달 -->
+<div id="withdrawalModal" class="modal hidden">
+  <div class="modal-content">
+    <h4>회원 탈퇴 확인</h4>
+    <input type="password" id="withdrawalPassword" placeholder="비밀번호 입력" />
+    <div class="modal-actions">
+      <button id="withdrawalConfirmBtn">확인</button>
+      <button id="withdrawalCancelBtn">취소</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="module" src="{{ url_for('static', filename='js/controller/mypageController.js') }}"></script>
+{% endblock %}

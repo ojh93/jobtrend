@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}메인 페이지 | JobTrends{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/index.css') }}">
+{% endblock %}
+
+{% block content %}
+<main id="snap-container">
+  <!-- Hero -->
+  <section class="snap-section hero"
+           style="background-image: url('{{ url_for('static', filename='assets/index.jpg') }}');">
+    <div class="overlay">
+      <h1>직군 성장률·소득분위 예측</h1>
+      <p>사용자의 직군 정보를 바탕으로 성장률과 소득분위를 예측하고, 맞춤 인사이트로 최적의 직업 선택을 돕습니다</p>
+    </div>
+  </section>
+
+  <!-- Split 섹션 -->
+  <section class="snap-section split-section">
+    <div class="split-panel left"
+         style="background-image: url('{{ url_for('static', filename='assets/trend.jpg') }}');"
+         onclick="location.href=window.ROUTES.trend">
+      <button class="split-btn">직군 트렌드</button>
+    </div>
+    <div class="split-panel right"
+         style="background-image: url('{{ url_for('static', filename='assets/insight.jpg') }}');"
+         onclick="location.href=window.ROUTES.insight">
+      <button class="split-btn">AI 인사이트</button>
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="module" src="{{ url_for('static', filename='js/controller/indexController.js') }}"></script>
+{% endblock %}

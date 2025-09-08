@@ -1,0 +1,75 @@
+/* ────────────────────────────────────────
+   trend.css: trend.html 전용 스타일
+──────────────────────────────────────── */
+.prediction-input {
+  width: 100%;
+  background: #f9f9f9;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+.ai-insight-form {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.ai-insight-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+.ai-insight-form input,
+.ai-insight-form select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 200px;
+}
+.ai-insight-form button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.trend-result {
+  width: 100%;
+  padding: 2rem 1rem;
+  display: none; /* JS로 결과 보이기 */
+}
+/* css/pages/trend.css */
+
+/* 1. hero-bg를 위로 당겨서 헤더 바로 뒤로 위치시킴 */
+.hero-bg {
+  position: relative;
+  z-index: 0;
+  margin-top: -60px;    /* 헤더 높이만큼 당기기 */
+  padding-top: 60px;    /* 당긴 공간만큼 패딩으로 메우기 */
+  height: 240px  /* 기존 height에 헤더 높이 보정 */
+}
+
+/* 2. 헤더가 hero-bg보다 앞에 보이도록 z-index 재확인 */
+header {
+  z-index: 1000;  /* layout.css와 동일하게 유지 */
+}
+/* ────────────────────────────────────────
+   trend.css: 예측 시작 버튼을 index.html 두번째 스크롤 버튼(.split-btn) 스타일로 변경
+──────────────────────────────────────── */
+.prediction-input button {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.prediction-input button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.05);
+}
+
+.prediction-input button:focus {
+  outline: 2px solid #004e92;
+}

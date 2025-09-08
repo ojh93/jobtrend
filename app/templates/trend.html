@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}직군 트렌드 예측 | JobTrends{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/trend.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="trend-container">
+  <section class="hero-bg">
+    <h1 class="trend-title">직군 트렌드 예측</h1>
+  </section>
+
+  <section class="prediction-input">
+    <form id="predictForm" class="ai-insight-form">
+      <label>직군명
+        <input type="text" id="jobSearch" list="jobList" placeholder="예: 정보통신업 / 금융업" />
+        <datalist id="jobList"></datalist>
+      </label>
+      <label>기준연도
+        <select id="baseYear"></select>
+      </label>
+      <button type="submit">🚀 예측 시작</button>
+    </form>
+  </section>
+
+  <section class="trend-result" style="display:none;">
+    <div id="summaryText" class="summary-box"></div>
+    <ul id="insightList" class="insight-list"></ul>
+
+    <div class="chart-block">
+      <h3>📈 직군별 성장률 예측 비교</h3>
+      <canvas id="growthChart"></canvas>
+    </div>
+    <div class="chart-block">
+      <h3>💵 직군별 소득 분위 분포</h3>
+      <canvas id="salaryChart"></canvas>
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="{{ url_for('static', filename='js/controller/trendController.js') }}"></script>
+{% endblock %}

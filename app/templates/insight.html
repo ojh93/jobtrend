@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}AI 인사이트 | JobTrends{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/insight.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="chat-layout no-global-header">
+  
+  <!-- 상단 Hero 영역 -->
+  <section class="hero-bg">
+    <h1 class="insight-page-title insight-title">AI 인사이트</h1>
+  </section>
+
+  <!-- 채팅 메인 영역 -->
+  <main class="chat-window">
+    
+    <!-- 메시지 리스트 -->
+    <div id="messages" class="messages">
+      <!-- 초기 AI 환영 메시지 -->
+      <div class="message ai">
+        <div class="avatar">AI</div>
+        <div class="bubble">
+          <p>무엇이 궁금하신가요? 추천 질문을 눌러보셔도 좋아요.</p>
+          <div class="meta"><span class="time"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 추천 질문 버튼 -->
+    <div id="suggestedQuestions" class="suggested-questions"></div>
+
+    <!-- 입력창 -->
+    <div class="composer">
+      <textarea id="questionInput" placeholder="메시지를 입력하세요..." rows="1"></textarea>
+      <button id="askBtn" class="send-btn" aria-label="전송">📨</button>
+    </div>
+
+  </main>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+<script type="module" src="{{ url_for('static', filename='js/controller/insightController.js') }}"></script>
+{% endblock %}

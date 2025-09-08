@@ -1,0 +1,32 @@
+<!-- templates/components/header.html -->
+<header class="site-header">
+  <div class="header-inner">
+    <!-- 로고 -->
+    <h1 class="logo">
+      <a class="nav-logo" href="{{ url_for('main.index') }}">JobTrends</a>
+    </h1>
+
+    <!-- 햄버거 버튼 (모바일 메뉴 토글) -->
+    <button class="hamburger" aria-label="메뉴 열기">☰</button>
+
+    <!-- 네비게이션 메뉴 -->
+    <nav class="main-nav">
+      <ul class="nav-menu">
+        <li><a class="nav-home" href="{{ url_for('main.index') }}">HOME</a></li>
+        <li><a class="nav-trend" href="{{ url_for('main.trend') }}">직군 트렌드</a></li>
+        <li><a class="nav-insight" href="{{ url_for('main.insight') }}">AI 인사이트</a></li>
+
+      {% if session.get('user_id') %}
+        <li><a class="nav-mypage" href="{{ url_for('main.mypage') }}">마이페이지</a></li>
+        <li class="nav-user"><span class="nav-username">{{ session.get('user_name') }}님</span></li>
+        <!-- 기존: 단순 링크 → 변경: JS 호출 -->
+        <li><a href="#" class="nav-logout" id="logoutLink">로그아웃</a></li>
+      {% else %}
+        <li><a class="login-link nav-login" href="{{ url_for('auth.login') }}">로그인</a></li>
+        <li><a class="nav-signup" href="{{ url_for('auth.signup') }}">회원가입</a></li>
+      {% endif %}
+
+      </ul>
+    </nav>
+  </div>
+</header>

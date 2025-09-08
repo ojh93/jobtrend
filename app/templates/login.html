@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}로그인 | JobTrends{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="login-page no-global-header">
+  
+  <!-- 배경 이미지 + 로고 + 타이틀 -->
+  <section class="hero-bg">
+    <div class="hero-header">
+    
+    <h1 class="login-page-title">로그인</h1>
+    </div>
+  </section>
+
+  <!-- 로그인 폼 -->
+  <section class="login-form-section">
+    <form id="loginForm" class="ai-insight-form form" method="POST" action="{{ url_for('auth.login') }}">
+      <label>이메일
+        <input type="email" name="email" placeholder="example@jobtrends.kr" required />
+      </label>
+      <label>비밀번호
+        <input type="password" name="password" placeholder="비밀번호 입력" required />
+      </label>
+      <button type="submit">로그인</button>
+    </form>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="flash-messages">
+        {% for category, msg in messages %}
+          <li class="{{ category }}">{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+
+    <p style="text-align:center; margin-top:1rem;">
+      아직 회원이 아니신가요? <a href="{{ url_for('auth.signup') }}">회원가입 하기</a>
+    </p>
+  </section>
+
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="module" src="{{ url_for('static', filename='js/controller/loginController.js') }}"></script>
+{% endblock %}
