@@ -27,8 +27,7 @@ app.register_blueprint(trend_bp)
 
 # ===== 3. 서버 실행 =====
 if __name__ == "__main__":
-    # 서버 시작 시 모델을 미리 로드하고 싶다면 아래 주석 해제
-    # from app.ai import llama_service
-    # llama_service.load_model()
+    # Render가 할당한 포트를 사용 (없으면 기본 5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
 
-    app.run(host="0.0.0.0", port=5000, debug=False)
