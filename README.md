@@ -51,3 +51,14 @@ app/ ├── ai/ # AI 서비스 모듈 │ ├── llama_service.py │ └�
 ### 4. 마이페이지
 - 예측/인사이트 이력 조회·삭제
 - 프로필 관리
+
+## 주요 기능 시연 영상
+![직군 트렌드 예측 _ JobTrends - Chrome 2025-09-04 13-58-00](https://github.com/user-attachments/assets/8ee1fd74-ac6b-4934-b6ca-488a66ca72fd)
+- 직군 트렌드 예측 영상
+
+![AI 인사이트 _ JobTrends - Chrome 2025-09-04 14-08-44](https://github.com/user-attachments/assets/4750d662-bc15-4f18-9383-19f54a22aaec)
+
+- 생성형 AI 답변 영상
+
+
+
