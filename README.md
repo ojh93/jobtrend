@@ -51,13 +51,14 @@ JobTrends는 공공 데이터와 AI 모델을 결합해 **직군별 미래 전�
 - 예측/인사이트 이력 조회·삭제
 - 프로필 관리
 
-## 주요 기능 시연 영상
+## 	🎞️ 주요 기능 시연 영상
 ![직군 트렌드 예측 _ JobTrends - Chrome 2025-09-04 13-58-00](https://github.com/user-attachments/assets/8ee1fd74-ac6b-4934-b6ca-488a66ca72fd)
 - 직군 트렌드 예측 영상 : 사용자가 선택한 직군과 기준연도의 소득 성장률, 소득 분위를 예측합니다.
 
 ![AI 인사이트 _ JobTrends - Chrome 2025-09-04 14-08-44](https://github.com/user-attachments/assets/4750d662-bc15-4f18-9383-19f54a22aaec)
 
 - 생성형 AI 답변 영상 : 사용자가 질문 예시를 선택하거나 직접 궁금한 점을 입력하면 ai의 답변이 제공됩니다.
+
 
 
 
