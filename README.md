@@ -28,8 +28,7 @@ JobTrends는 공공 데이터와 AI 모델을 결합해 **직군별 미래 전�
 
 
 ## 📂 폴더 구조
-
-app/ ├── ai/ # AI 서비스 모듈 │ ├── llama_service.py │ └── routes.py ├── models/ # 데이터 모델 │ └── user.py ├── static/ # 정적 파일 (CSS, JS, 이미지, CSV) │ ├── css/ │ ├── js/ │ │ ├── controller/ │ │ ├── model/ │ │ ├── utils/ │ │ └── view/ │ └── assets/ ├── templates/ # HTML 템플릿 │ ├── base.html │ ├── index.html │ ├── insight.html │ └── trend.html ├── utils/ # 헬퍼 함수 │ └── helpers.py ├── db.py # Oracle DB 연결 └── run.py # Flask 앱 실행 진입점
+<img width="438" height="945" alt="폴더 구조" src="https://github.com/user-attachments/assets/b0ab88c1-e72f-4392-a3b5-0a1424a99bc6" />
 
 ## 🚀 주요 기능
 
@@ -54,11 +53,12 @@ app/ ├── ai/ # AI 서비스 모듈 │ ├── llama_service.py │ └�
 
 ## 주요 기능 시연 영상
 ![직군 트렌드 예측 _ JobTrends - Chrome 2025-09-04 13-58-00](https://github.com/user-attachments/assets/8ee1fd74-ac6b-4934-b6ca-488a66ca72fd)
-- 직군 트렌드 예측 영상
+- 직군 트렌드 예측 영상 : 사용자가 선택한 직군과 기준연도의 소득 성장률, 소득 분위를 예측합니다.
 
 ![AI 인사이트 _ JobTrends - Chrome 2025-09-04 14-08-44](https://github.com/user-attachments/assets/4750d662-bc15-4f18-9383-19f54a22aaec)
 
-- 생성형 AI 답변 영상
+- 생성형 AI 답변 영상 : 사용자가 질문 예시를 선택하거나 직접 궁금한 점을 입력하면 ai의 답변이 제공됩니다.
+
 
 
 
