@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import concurrent.futures
 import logging
 import os
@@ -108,3 +109,125 @@ def safe_generate_response(question: str, timeout: int = 30) -> dict:
 def generate_response(question: str, timeout: int = 30):
     result = safe_generate_response(question, timeout=timeout)
     return result.get("answer") if result.get("ok") else result
+=======
+import concurrent.futures
+import logging
+import os
+import psutil
+from huggingface_hub import hf_hub_download, login
+from llama_cpp import Llama
+from langchain.llms.base import LLM
+from langchain.prompts import PromptTemplate
+
+# 전역 변수로 모델을 선언하되, 처음에는 비워둡니다 (None)
+_llm_instance = None
+
+# ----------- Hugging Face 로그인 -----------
+HF_API_TOKEN = os.getenv("HF_API_TOKEN")
+if HF_API_TOKEN:
+    login(token=HF_API_TOKEN)
+
+# ----------- 모델 로딩 함수 (지연 로딩 적용) -----------
+def get_llm_model():
+    global _llm_instance
+    # 모델이 이미 로딩되어 있으면 그대로 반환 (재로딩 방지)
+    if _llm_instance is not None:
+        return _llm_instance
+
+    print("🔄 AI 모델 로딩 중... (이 작업은 한 번만 실행됩니다)")
+    
+    # CPU/메모리 최적화 설정
+    cpu_count = os.cpu_count() or 4
+    mem_gb = psutil.virtual_memory().total / (1024**3)
+    threads = max(2, int(cpu_count * 0.75))
+    batch = 128 if mem_gb >= 16 else 64 if mem_gb >= 8 else 32
+
+    # 모델 경로 설정
+    REPO_ID = os.getenv("HF_REPO_ID", "Bllossom/llama-3.2-Korean-Bllossom-3B-gguf-Q4_K_M")
+    FILENAME = os.getenv("HF_FILENAME", "llama-3.2-Korean-Bllossom-3B-gguf-Q4_K_M.gguf")
+    CTX_SIZE = int(os.getenv("HF_CTX_SIZE", 512))
+
+    # 모델 다운로드 및 로드
+    model_path = hf_hub_download(repo_id=REPO_ID, filename=FILENAME)
+    _llm_instance = Llama(
+        model_path=model_path,
+        n_ctx=CTX_SIZE,
+        n_threads=threads,
+        n_batch=batch,
+        use_mlock=True,
+        verbose=False
+    )
+    
+    # Warm-up (첫 실행 속도 향상)
+    _llm_instance("테스트", max_tokens=1, temperature=0.0)
+    print("✅ AI 모델 로딩 완료!")
+    
+    return _llm_instance
+
+# ----------- LangChain LLM 래퍼 -----------
+class LlamaCppLLM(LLM):
+    def _call(self, prompt: str, stop=None):
+        # [핵심] 모델이 필요할 때 get_llm_model()을 호출합니다.
+        model = get_llm_model()
+        res = model(
+            prompt,
+            max_tokens=80,
+            temperature=0.7,
+            top_p=1.0,
+            top_k=40,
+            stop=stop or ["다. ", "요. ", "다.", "요.", "</s>"],
+            echo=False
+        )
+        return res["choices"][0]["text"].strip()
+
+    @property
+    def _identifying_params(self):
+        return {"model_name": "Llama-3.2-Korean-Bllossom"}
+
+    @property
+    def _llm_type(self):
+        return "llama_cpp_python"
+
+# 전역 체인 객체 생성 (이때는 모델을 로딩하지 않음)
+llm = LlamaCppLLM()
+
+prompt_template = (
+    "다음 내용을 한국 기준으로 40~60자 내의 완결된 한 문장으로 요약하라. "
+    "긍정과 부정을 균형 있게 포함하고 군더더기 없이 작성하라.\n\n"
+    "내용: {question}\n\n"
+    "출력은 한 문장만 하시오."
+)
+prompt = PromptTemplate(input_variables=["question"], template=prompt_template)
+chain = prompt | llm
+
+# ----------- 후처리 및 실행 함수 -----------
+def _postprocess_generated_text(full_text: str) -> str:
+    text = full_text.replace("\n", " ").strip()
+    for end in ["다.", "요."]:
+        if end in text:
+            text = text.split(end)[0] + end
+            break
+    if text.endswith("된"):
+        text = text.rstrip("된") + "됩니다."
+    elif not (text.endswith("다.") or text.endswith("요.")):
+        text += "다."
+    return text
+
+def safe_generate_response(question: str, timeout: int = 60) -> dict:
+    try:
+        # 여기서 체인을 실행할 때 비로소 모델이 로딩됩니다.
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(lambda: chain.invoke({"question": question.strip()}))
+            answer = future.result(timeout=timeout)
+            return {"ok": True, "answer": _postprocess_generated_text(answer)}
+    except concurrent.futures.TimeoutError:
+        logging.warning(f"LangChain generate_response timed out after {timeout} seconds")
+        return {"ok": False, "error": "timeout"}
+    except Exception as e:
+        logging.exception("LangChain generate_response 호출 중 예외 발생")
+        return {"ok": False, "error": f"AI 호출 오류: {str(e)}"}
+
+def generate_response(question: str, timeout: int = 60):
+    result = safe_generate_response(question, timeout=timeout)
+    return result.get("answer") if result.get("ok") else result
+>>>>>>> a9ccfb7 (feat: 최신 Dockerfile 및 라우트 오류 수정 사항 반영)

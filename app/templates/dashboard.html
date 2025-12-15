@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "base.html" %}
 {% block title %}대시보드 | JobTrends{% endblock %}
 
@@ -6,3 +7,13 @@
 <p>로그인에 성공했습니다.</p>
 <a href="{{ url_for('auth.logout') }}">로그아웃</a>
 {% endblock %}
+=======
+{% extends "base.html" %}
+{% block title %}대시보드 | JobTrends{% endblock %}
+
+{% block content %}
+<h2>{{ name }}님 환영합니다!</h2>
+<p>로그인에 성공했습니다.</p>
+<a href="{{ url_for('auth.logout') }}">로그아웃</a>
+{% endblock %}
+>>>>>>> a9ccfb7 (feat: 최신 Dockerfile 및 라우트 오류 수정 사항 반영)

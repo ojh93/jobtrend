@@ -1,0 +1,11 @@
+# .dockerignore 파일 내용
+
+# 파이썬 가상 환경
+.venv
+
+# 파이썬 캐시 파일
+__pycache__/
+*.pyc
+
+# [가장 중요] 다운로드한 AI 모델 캐시 폴더
+app/ai/hf_cache

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from flask import Blueprint, render_template, session, redirect, url_for, flash, request, jsonify
 from app.db import get_connection
 import hashlib
@@ -240,3 +241,60 @@ def insight_batch_api():
             results.append(f.result())
 
     return jsonify(results), 200
+=======
+from flask import Blueprint, render_template, session, redirect, url_for, flash
+from app.db import get_connection
+
+main_bp = Blueprint('main', __name__)
+
+# 1. 모든 템플릿에 'user' 정보를 자동으로 넣어주는 함수
+@main_bp.app_context_processor
+def inject_user():
+    user = None
+    if 'user_id' in session:
+        try:
+            conn = get_connection()
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM users WHERE id = ?", (session['user_id'],))
+            user = cur.fetchone()
+            conn.close()
+        except Exception as e:
+            print(f"User Context Error: {e}")
+    return dict(user=user)
+
+# 2. 메인 페이지
+@main_bp.route('/')
+def index():
+    return render_template('index.html')
+
+# 3. [추가됨] AI 인사이트 페이지
+@main_bp.route('/insight')
+def insight():
+    return render_template('insight.html')
+
+# 4. 마이페이지
+@main_bp.route('/mypage')
+def mypage():
+    if 'user_id' not in session:
+        flash('로그인이 필요합니다.')
+        return redirect(url_for('auth.login'))
+
+    user_id = session['user_id']
+    conn = get_connection()
+    cur = conn.cursor()
+    
+    trend_history = []
+    try:
+        cur.execute("""
+            SELECT * FROM trend_history 
+            WHERE user_id = ? 
+            ORDER BY created_at DESC
+        """, (user_id,))
+        trend_history = cur.fetchall()
+    except Exception as e:
+        print(f"MyPage Error: {e}")
+    finally:
+        conn.close()
+
+    return render_template('mypage.html', trend_history=trend_history)
+>>>>>>> a9ccfb7 (feat: 최신 Dockerfile 및 라우트 오류 수정 사항 반영)

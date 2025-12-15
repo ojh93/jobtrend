@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 absl-py==2.3.1
 accelerate==1.10.0
 aiohappyeyeballs==2.6.1
@@ -220,3 +221,26 @@ yarl==1.20.1
 zipp==3.23.0
 zstandard==0.24.0
 gunicorn==21.2.0
+=======
+# 웹 프레임워크 & DB
+Flask==3.1.1
+Flask-Cors==6.0.1
+SQLAlchemy==2.0.43
+
+# 데이터 분석 & 머신러닝 (복구됨!)
+pandas==2.3.1
+numpy==1.26.4
+scikit-learn==1.7.0
+
+# AI & 유틸리티
+huggingface-hub==0.34.4
+langchain==0.3.27
+langchain-community==0.3.27
+langchain-core==0.3.74
+python-dotenv==1.1.1
+requests==2.32.4
+psutil==7.0.0
+
+# (중요) llama-cpp-python은 Dockerfile에서 별도로 설치하므로 제외
+# (중요) torch, tensorflow 등 미사용 거대 라이브러리 제외
+>>>>>>> a9ccfb7 (feat: 최신 Dockerfile 및 라우트 오류 수정 사항 반영)

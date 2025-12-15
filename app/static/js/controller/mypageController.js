@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // js/controller/mypageController.js
 import { loadCommonLayout } from '../common/layoutLoader.js';
 import {
@@ -59,3 +60,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     alert(err.message);
   }
   });
+=======
+// js/controller/mypageController.js
+import { loadCommonLayout } from '../common/layoutLoader.js';
+import {
+  initCardClickEvents,
+  initUserForm,
+  initWithdrawal
+} from '../view/mypageView.js';
+
+// [수정됨] 불필요한 API 호출 로직을 제거하고, UI 이벤트만 초기화합니다.
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadCommonLayout();
+
+  initCardClickEvents();
+  initUserForm();
+  initWithdrawal();
+
+  // 이미 HTML(템플릿)에 데이터가 다 들어있으므로,
+  // 여기서 fetchMypageData() 등을 호출할 필요가 없습니다.
+  console.log("마이페이지 로드 완료 (SSR 데이터 사용)");
+});
+>>>>>>> a9ccfb7 (feat: 최신 Dockerfile 및 라우트 오류 수정 사항 반영)

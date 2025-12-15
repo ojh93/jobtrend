@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 python-3.11.9
+=======
+python-3.12.5
+>>>>>>> a9ccfb7 (feat: 최신 Dockerfile 및 라우트 오류 수정 사항 반영)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "base.html" %}
 {% block title %}마이페이지 | JobTrends{% endblock %}
 
@@ -48,3 +49,72 @@
 {% block extra_scripts %}
 <script type="module" src="{{ url_for('static', filename='js/controller/mypageController.js') }}"></script>
 {% endblock %}
+=======
+{% extends "base.html" %}
+{% block title %}마이페이지 | JobTrends{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/mypage.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="hero-bg" style="background-image: url('{{ url_for('static', filename='assets/mypage.jpg') }}');">
+  <div class="hero-overlay">
+    <h1 class="mypage-page-title">마이페이지</h1>
+  </div>
+</section>
+
+<main class="mypage-page">
+  <section>
+    <h3>📊 트렌드 예측 이력</h3>
+    <ul id="trendHistoryList" class="trend-history-list">
+      {% if trend_history %}
+        {% for history in trend_history %}
+          <li class="history-item">
+            <span class="history-date">{{ history.created_at }}</span>
+            <div class="history-content">
+              <strong>{{ history.year }}년</strong> 
+              <span>{{ history.job }}</span> 직군 예측 결과
+            </div>
+          </li>
+        {% endfor %}
+      {% else %}
+        <li class="no-history">아직 저장된 예측 이력이 없습니다.</li>
+      {% endif %}
+    </ul>
+  </section>
+
+  <section>
+    <h3>🧾 계정 정보</h3>
+    <div class="ai-card">
+      <p>
+        <strong>이름:</strong> 
+        <input type="text" name="name" value="{{ user.username }}" disabled />
+      </p>
+      <p>
+        <strong>이메일:</strong> 
+        <input type="email" name="email" value="{{ user.email }}" disabled />
+      </p>
+      
+      <button class="primary-btn" id="editInfoBtn">개인정보 수정</button>
+      <button class="warn-btn" id="withdrawBtn">회원 탈퇴</button>
+    </div>
+  </section>
+</main>
+
+<div id="withdrawalModal" class="modal hidden">
+  <div class="modal-content">
+    <h4>회원 탈퇴 확인</h4>
+    <input type="password" id="withdrawalPassword" placeholder="비밀번호 입력" />
+    <div class="modal-actions">
+      <button id="withdrawalConfirmBtn">확인</button>
+      <button id="withdrawalCancelBtn">취소</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="module" src="{{ url_for('static', filename='js/controller/mypageController.js') }}"></script>
+{% endblock %}
+>>>>>>> a9ccfb7 (feat: 최신 Dockerfile 및 라우트 오류 수정 사항 반영)

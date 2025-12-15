@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -61,4 +62,69 @@
   });
   </script>
 </body>
+=======
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}JobTrends{% endblock %}</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+
+  <!-- 📍 ROUTES: 모든 페이지에서 공통으로 쓰이는 경로 상수 -->
+  <script>
+    window.ROUTES = {
+      home: "{{ url_for('main.index') }}",
+      trend: "{{ url_for('trend.trend_page') }}",
+      insight: "{{ url_for('main.insight') }}",
+      mypage: "{{ url_for('main.mypage') }}",
+      login: "{{ url_for('auth.login') }}",
+      signup: "{{ url_for('auth.signup') }}",
+      logout: "{{ url_for('auth.logout') }}",
+      dashboard: "{{ url_for('auth.dashboard') }}"
+    };
+  </script>
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <!-- 공통 로더 -->
+  {% include 'components/loader.html' %}
+
+  <!-- 공통 헤더 -->
+  {% include 'components/header.html' %}
+
+  <!-- 개별 페이지 콘텐츠 -->
+  {% block content %}{% endblock %}
+
+  <!-- 공통 푸터 -->
+  {% include 'components/footer.html' %}
+
+  <!-- 공통 스크립트 -->
+  <script type="module" src="{{ url_for('static', filename='js/common/layoutLoader.js') }}"></script>
+
+  {% block extra_scripts %}{% endblock %}
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const logoutLink = document.getElementById('logoutLink');
+      if (logoutLink) {
+          logoutLink.addEventListener('click', function(e) {
+              e.preventDefault();
+              localStorage.clear();
+              sessionStorage.clear();
+              fetch(window.ROUTES.logout, { method: 'GET', credentials: 'include' })
+                  .then(() => {
+                      window.location.href = window.ROUTES.login;
+                  });
+          });
+      }
+  });
+  </script>
+</body>
+>>>>>>> a9ccfb7 (feat: 최신 Dockerfile 및 라우트 오류 수정 사항 반영)
 </html>
