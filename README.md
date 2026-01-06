@@ -145,10 +145,10 @@
 
 사용자가 선택한 직군의 과거 데이터를 바탕으로 XGBoost 모델이 **미래 성장률과 소득 분위**를 예측하여 시각화합니다.
 
-### 2. AI 인사이트 (RAG 기반)
+### 2. AI 인사이트 
 ![AI 인사이트 _ JobTrends - Chrome 2025-09-04 14-08-44](https://github.com/user-attachments/assets/68674950-ea23-4c9b-a3a8-f98cc85a9527)
 
-예측된 데이터를 바탕으로 Llama 3 모델이 "전직하기 위한 구체적인 조언"을 생성해줍니다.
+데이터를 바탕으로 Llama 3 모델이 "전직하기 위한 구체적인 조언"을 생성해줍니다.
 
 ## 💻 실행 방법 (Getting Started)
 
@@ -187,4 +187,5 @@ docker run -p 5000:5000 jobtrend
 ---
 
 **Contact:** 오정현 (lontin36@naver.com)
+
 
