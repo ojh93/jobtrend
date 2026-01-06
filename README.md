@@ -1,96 +1,189 @@
-<<<<<<< HEAD
-# JobTrends — 직군 성장률·소득분위 예측 & AI 인사이트
+# 📈 JobTrend — 직군 성장률 예측 & AI 커리어 조언 서비스
 
-> **Flask + Oracle + LangChain + LLaMA** 기반의 직군 데이터 분석 및 AI 인사이트 제공 웹 서비스  
-> 사용자의 직군 정보를 기반으로 **성장률·소득분위 예측**과 **맞춤형 AI 인사이트**를 제공합니다.
-
-
+> **8년 차 엔지니어의 최적화 DNA를 담은 프로젝트** > **Flask(Blueprint) + Vanilla JS(MVC) + Llama 3(4bit Quantization)** 기반의 고성능 커리어 인사이트 플랫폼
 
 ## 📌 프로젝트 개요
-JobTrends는 공공 데이터와 AI 모델을 결합해 **직군별 미래 전망**을 예측하고,  
-사용자 맞춤형 인사이트를 제공하는 서비스입니다.
 
-- **직군 트렌드 예측**: 성장률·소득분위 예측 및 시각화
-- **AI 인사이트**: LLaMA 기반 요약·분석·추천
-- **마이페이지**: 예측/인사이트 이력 관리
-- **회원 시스템**: 회원가입·로그인·프로필 수정·탈퇴
+**JobTrend**는 공공 데이터와 LLM(거대언어모델)을 결합하여 사용자에게 데이터 기반의 커리어 로드맵을 제시하는 웹 서비스입니다.
+단순한 데이터 조회를 넘어, **XGBoost**를 활용한 미래 성장률 예측과 **Llama 3** 기반의 맞춤형 AI 상담 기능을 **CPU 환경에서도 2초 내에 응답**하도록 최적화하여 구현했습니다.
+
+### 🎯 핵심 가치
+
+* **Data-Driven:** KLIPS(한국노동패널) 데이터를 분석하여 객관적인 성장률 및 소득 분위 예측
+* **Optimization:** 고가의 GPU 없이도 실행 가능한 경량화된 온디바이스급 AI 모델 서빙
+* **Architecture:** 프레임워크에 의존하지 않는 순수 MVC 패턴 구현을 통한 웹 본질의 이해
+
+## 🛠 기술 스택 (Tech Stack)
+
+<table>
+  <thead>
+    <tr>
+      <th width="15%">영역</th>
+      <th width="30%">기술 스택</th>
+      <th width="55%">상세 활용 내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><b>Backend</b></td>
+      <td>
+        <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=Python&logoColor=white">
+        <img src="https://img.shields.io/badge/Flask-000000?style=flat-square&logo=Flask&logoColor=white">
+      </td>
+      <td>
+        <ul>
+          <li><b>App Factory & Blueprint</b> 패턴으로 모듈화된 아키텍처 설계</li>
+          <li><b>RESTful API</b> 설계 및 세션 기반 인증 구현</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><b>AI / LLM</b></td>
+      <td>
+        <img src="https://img.shields.io/badge/Llama_3-0467DF?style=flat-square">
+        <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=flat-square&logo=LangChain&logoColor=white">
+      </td>
+      <td>
+        <ul>
+          <li><b>GGUF 4bit Quantization</b> 적용 (메모리 최적화)</li>
+          <li><code>llama-cpp-python</code>을 활용한 CPU 추론 가속</li>
+          <li>LangChain PromptTemplate을 활용한 답변 구조화</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><b>Data / ML</b></td>
+      <td>
+        <img src="https://img.shields.io/badge/Oracle-F80000?style=flat-square&logo=Oracle&logoColor=white">
+        <img src="https://img.shields.io/badge/XGBoost-15B459?style=flat-square">
+      </td>
+      <td>
+        <ul>
+          <li><b>Oracle Cloud ATP</b> 연동 (cx_Oracle)</li>
+          <li>XGBoost Regressor를 활용한 시계열 성장률 예측</li>
+          <li>Pandas를 활용한 IQR 이상치 제거 및 전처리</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><b>Frontend</b></td>
+      <td>
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black">
+        <img src="https://img.shields.io/badge/Chart.js-FF6384?style=flat-square&logo=chartdotjs&logoColor=white">
+      </td>
+      <td>
+        <ul>
+          <li><b>Custom MVC Pattern</b> (Model-View-Controller) 직접 구현</li>
+          <li>Chart.js를 활용한 동적 데이터 시각화</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><b>DevOps</b></td>
+      <td>
+        <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white">
+      </td>
+      <td>
+        <ul>
+          <li>Multi-stage build를 통한 이미지 경량화</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## 📂 소프트웨어 아키텍처 & 폴더 구조
+
+기능별 응집도를 높이고 결합도를 낮추기 위해 **백엔드(Blueprint)**와 **프론트엔드(MVC)** 모두 모듈형 구조를 채택했습니다.
+
+```bash
+📦 jobtrend
+ ┣ 📂 app
+ ┃ ┣ 📂 ai              # AI 관련 로직 (Llama 3 로드, LangChain 설정)
+ ┃ ┣ 📂 data            # 머신러닝 학습용 CSV 데이터
+ ┃ ┣ 📂 models          # DB 엔티티 (User, Prediction 등)
+ ┃ ┣ 📂 routes          # Flask Blueprint 라우트 (Auth, Main, Trend)
+ ┃ ┣ 📂 static
+ ┃ ┃ ┣ 📂 js
+ ┃ ┃ ┃ ┣ 📂 controller  # 사용자 입력 처리 및 이벤트 핸들링
+ ┃ ┃ ┃ ┣ 📂 model       # 데이터 비즈니스 로직 (API 통신)
+ ┃ ┃ ┃ ┗ 📂 view        # UI 렌더링 및 DOM 조작
+ ┃ ┗ 📂 templates       # Jinja2 HTML 템플릿
+ ┣ 📜 Dockerfile        # 컨테이너 빌드 설정
+ ┣ 📜 run.py            # 앱 실행 진입점
+ ┗ 📜 requirements.txt  # 의존성 패키지 목록
+
+```
+
+## 🚀 주요 기술적 도전 (Technical Challenges)
+
+### 1. CPU 환경에서의 LLM 최적화 (7s → 2s)
+
+* **문제:** 고사양 GPU가 없는 클라우드 환경(Render, 일반 Docker)에서 Llama 3(8B) 모델 구동 시 메모리 부족 및 7초 이상의 응답 지연 발생.
+* **해결:**
+* HuggingFace에서 **GGUF 포맷**으로 변환된 모델을 로드하여 **4-bit 양자화(Quantization)** 적용.
+* `llama-cpp-python` 라이브러리를 통해 CPU 명령어 세트(AVX2 등)를 활용한 추론 가속.
 
 
+* **결과:** 응답 속도를 평균 **2초대로 단축(약 70% 개선)**하며 실시간 서비스 가능성 확보.
 
-## 🛠 기술 스택
+### 2. 프레임워크 없는 순수 MVC 패턴 구현
 
-| 영역 | 기술 |
-|------|------|
-| **백엔드** | Python 3, Flask, Flask-CORS, cx_Oracle, SQLAlchemy |
-| **AI** | Hugging Face Hub, llama_cpp_python, LangChain, transformers |
-| **프론트엔드** | HTML5, CSS3, JavaScript(ES6 Modules), D3.js, Chart.js |
-| **데이터** | CSV 기반 예측 데이터, Pandas, NumPy |
-| **기타** | bcrypt, dotenv, requests |
+* **의도:** React 등 프레임워크의 '마법'에 의존하기보다, JavaScript의 본질적인 데이터 흐름과 상태 관리를 이해하고자 함.
+* **구현:**
+* **Model:** `fetch` API를 통해 백엔드와 통신하고 데이터를 관리.
+* **View:** 데이터를 받아 DOM을 업데이트하고 차트를 렌더링.
+* **Controller:** 사용자 이벤트를 감지하여 Model과 View를 조율.
 
 
-## 📂 폴더 구조
-<img width="438" height="945" alt="폴더 구조" src="https://github.com/user-attachments/assets/b0ab88c1-e72f-4392-a3b5-0a1424a99bc6" />
+* **결과:** 코드의 역할이 명확해져 유지보수가 쉬워졌으며, 프론트엔드 아키텍처에 대한 이해도 상승.
 
-## 🚀 주요 기능
+## ✨ 주요 기능 시연
 
 ### 1. 직군 트렌드 예측
-- CSV 기반 성장률·소득분위 예측
-- Chart.js 시각화
-- 예측 결과 마이페이지 자동 저장
+![직군 트렌드 예측 _ JobTrends - Chrome 2025-09-04 13-58-00](https://github.com/user-attachments/assets/1b3330ae-abca-43fb-b188-a1ea638994b5)
 
-### 2. AI 인사이트
-- Hugging Face LLaMA 모델 로드
-- LangChain PromptTemplate 기반 요약·분석
-- 실시간 채팅 UI + 추천 질문
+사용자가 선택한 직군의 과거 데이터를 바탕으로 XGBoost 모델이 **미래 성장률과 소득 분위**를 예측하여 시각화합니다.
 
-### 3. 회원 시스템
-- 회원가입, 로그인, 로그아웃
-- 프로필 수정, 회원탈퇴
-- bcrypt 비밀번호 해시
+### 2. AI 인사이트 (RAG 기반)
+![AI 인사이트 _ JobTrends - Chrome 2025-09-04 14-08-44](https://github.com/user-attachments/assets/68674950-ea23-4c9b-a3a8-f98cc85a9527)
 
-### 4. 마이페이지
-- 예측/인사이트 이력 조회·삭제
-- 프로필 관리
+예측된 데이터를 바탕으로 Llama 3 모델이 **"이 직군으로 전직하기 위한 구체적인 조언"**을 생성해줍니다.
 
-## 	🎞️ 주요 기능 시연 영상
-![직군 트렌드 예측 _ JobTrends - Chrome 2025-09-04 13-58-00](https://github.com/user-attachments/assets/8ee1fd74-ac6b-4934-b6ca-488a66ca72fd)
-- 직군 트렌드 예측 영상 : 사용자가 선택한 직군과 기준연도의 소득 성장률, 소득 분위를 예측합니다.
+## 💻 실행 방법 (Getting Started)
 
-![AI 인사이트 _ JobTrends - Chrome 2025-09-04 14-08-44](https://github.com/user-attachments/assets/4750d662-bc15-4f18-9383-19f54a22aaec)
+### 로컬 환경 (Local)
 
-- 생성형 AI 답변 영상 : 사용자가 질문 예시를 선택하거나 직접 궁금한 점을 입력하면 ai의 답변이 제공됩니다.
+```bash
+# 1. 저장소 클론
+git clone https://github.com/ojh93/jobtrend.git
 
+# 2. 가상환경 생성 및 활성화
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
+# 3. 의존성 설치
+pip install -r requirements.txt
 
+# 4. 모델 다운로드 (최초 1회)
+python download_model.py
 
+# 5. 실행
+python run.py
 
-=======
+```
 
-## 🚀 실행 방법
+### 도커 환경 (Docker)
 
-1. 이 폴더를 그대로 로컬에 복사
-2. 브라우저로 `index.html` 열기
-3. 모든 기능은 JavaScript 기반으로 정상 작동
+```bash
+# 1. 이미지 빌드
+docker build -t jobtrend .
 
-## 🛠️ 기술 스택
+# 2. 컨테이너 실행
+docker run -p 5000:5000 jobtrend
 
-- HTML5, CSS3, JavaScript (Vanilla JS)
-- MVC 구조 분리
-- 재사용 가능한 컴포넌트 구조 (`components/`)
+```
 
-## 💡 주요 기능
+---
 
-- 페이지 간 이동
-- 사용자 인터랙션 반영
-- 동적 콘텐츠 렌더링
-- 유지보수 가능한 구조
-
-## 📄 작업 내역
-
-- 기존 JS 코드 분리: controller, model, view
-- 주석 및 코드 설명 보강
-- 폴더 구조 개편 및 명확한 책임 분할
-- 공통 레이아웃 컴포넌트화
-
-
->>>>>>> a9ccfb7 (feat: 최신 Dockerfile 및 라우트 오류 수정 사항 반영)
+**Contact:** 오정현 (lontin36@naver.com)
